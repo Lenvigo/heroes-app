@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+import { Observable, catchError, of } from 'rxjs';
+
 import { Hero } from '../interfaces/hero.interface';
 import { environments } from '../../../environments/environments';
-import { Observable, catchError, of } from 'rxjs';
+
 
 @Injectable({ providedIn: 'root' })
 export class HeroesService {
@@ -41,5 +44,9 @@ Interrupción del Flujo Reactivo:
 RxJS se basa en el flujo continuo de Observables. Devolver un valor fuera de este flujo puede interrumpir la cadena de operadores y complicar la lógica de manejo de datos.
 */
 
+
+getSuggestions(query:string):Observable<Hero[]>{
+  return this.http.get<Hero[]>(`${ this.baseUrl }/heroes?q=${ query }&_limit=6`);
+}
 
 }
