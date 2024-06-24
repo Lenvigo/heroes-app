@@ -5,7 +5,8 @@ mat-card-actions<mat-card>
   </mat-card-header>
 
   <!-- TODO: imagen -->
-   <img mat-card-image [src]="'assets/heroes/' + hero.id + '.jpg'"  [alt]="hero.superhero"  >
+
+   <img mat-card-image [src]="hero|heroImage"  [alt]="hero.superhero"  >
 
   <mat-card-content class="mt-2">
     <h4>
