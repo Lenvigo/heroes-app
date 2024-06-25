@@ -44,10 +44,26 @@ export class HeroesService {
   */
 
 
-  getSuggestions(query: string): Observable<Hero[]> {
-    return this.http.get<Hero[]>(`${this.baseUrl}/heroes?q=${query}&_limit=6`);
-  }
 
+  /* para usar la siguiente funcion tendriamos que instalar la version anterior de json-serve,
+              npm i -save-dev json-server@0.17.4 */
+
+
+  // getSuggestions(query: string): Observable<Hero[]> {
+  //   return this.http.get<Hero[]>(`${this.baseUrl}/heroes?q=${query}&_limit=6`);
+  // }
+
+            /*con nuestra version de json server*/
+
+  getSuggestions(query: string): Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${this.baseUrl}/heroes`)
+      .pipe(
+        map(heroes => heroes
+          .filter(hero => hero.superhero.toLowerCase()
+            .includes(query.toLowerCase())
+          ))
+      );
+  }
 
   addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(`${this.baseUrl}/heroes`, hero);
@@ -61,12 +77,12 @@ export class HeroesService {
   }
 
 
-  deleteHeroById(id:string): Observable<boolean> {
+  deleteHeroById(id: string): Observable<boolean> {
     return this.http.delete(`${this.baseUrl}/heroes/${id}`)
-    .pipe(
-      map( resp => true ),
-      catchError( err => of(false) ),
-    );
+      .pipe(
+        map(resp => true),
+        catchError(err => of(false)),
+      );
   }
 
 
