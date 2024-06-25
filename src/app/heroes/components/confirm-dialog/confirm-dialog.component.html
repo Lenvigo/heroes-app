@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>¿Seguro?</h2>
+<mat-dialog-content>
+  <p>Acción irreversible, vas a eliminar a {{data.superhero}}</p>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+ <button mat-button (click)="onNoClick()" cdkFocusInitial>No quiero borrar</button>
+ <span class="spacer"></span>
+  <button mat-button  (click)="onConfirm()">Bórralo ya!</button>
+</mat-dialog-actions>
